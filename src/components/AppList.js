@@ -13,6 +13,7 @@ class AppList extends React.Component {
     
     //Get list of apps
     getApps = (engine) => {
+        console.log(engine);
         engine.then(engine => {
             engine.getDocList().then(apps => {
                 //update state with list of apps from object
