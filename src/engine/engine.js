@@ -10,7 +10,7 @@ import enigma from 'enigma.js'
 
 
 // config connection to qlik tenant
-let session, user, global;
+let session, user, global, apps;
 const getQlikGlobal = async () => {
 const tenantUri = 'https://kassovitz.us.qlikcloud.com';
 const webIntegrationId = '57dm78_Ma_zMlX-y9A-wcm1D0jLoDy7W';
@@ -49,7 +49,7 @@ try {
     const csrfToken = res.headers.get('qlik-csrf-token');
 
     // fetch the list of available apps:
-    const apps = await request('/api/v1/items?resourceType=app');
+    apps = await request('/api/v1/items?resourceType=app');
 
     if (!apps.data.length) {
       console.log('No apps available');
@@ -76,7 +76,7 @@ try {
     window.console.log('Error while setting up:', err);
   }
 
-  return global;
+  return {global, apps, tenantUri};
 };
 
 export default getQlikGlobal();
